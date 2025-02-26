@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 4s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["172.20.192.1:8000"]
+
+# we are scraping from this our app server(we expoerted it in our code on port 8000), since it is localhost we can use the IP address

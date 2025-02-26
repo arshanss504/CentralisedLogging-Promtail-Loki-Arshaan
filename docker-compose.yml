@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  prom-server:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  promtail:
+      image: grafana/promtail:latest
+      container_name: promtail
+      volumes:
+        - C:/Users/Asus/Desktop/Centralised Monitioring (log file)/promtail-config.yml:/etc/promtail/promtail-config.yaml  # Mount config file
+        - C:/promtail/logs:/logs  # Mount log file
+        - C:/promtail/positions:/tmp  # Store positions file
+      command: -config.file=/etc/promtail/promtail-config.yaml
+      restart: unless-stopped
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
